@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const User = require('../../model/usermodel');
 const { hashedPassword } = require('../../utils/hashedpassword')
+const { genrateRestToken } = require('../../utils/genWebToken')
 const resetPassword = async(req,res)=>{
         console.log('checking request coming')
        try {
@@ -13,7 +14,7 @@ const resetPassword = async(req,res)=>{
            console.log('hashed run fine',hashedToken)
          const user = await User.findOne({
             resetPasswordToken:hashedToken,
-            resetPasswordTokenExpires:{$gt:Date.now()}
+            resetPasswordExpires:{$gt:Date.now()}
 
          })
          console.log('user found ',user)
@@ -24,7 +25,7 @@ const resetPassword = async(req,res)=>{
 
          user.password = await hashedPassword(password);
          user.resetPasswordToken = undefined ;
-         user.resetPasswordTokenExpires = undefined ;
+         user.resetPasswordExpires = undefined ;
 
          await user.save()
 

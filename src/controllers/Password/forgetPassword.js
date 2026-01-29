@@ -15,7 +15,7 @@ const forgetPassword = async(req ,res)=>{
         const {resetToken ,hashedToken ,expiresIn } = genrateRestToken() ;
         
         user.resetPasswordToken = hashedToken ;
-        user.resetPasswordTokenExpires = expiresIn ;
+        user.resetPasswordExpires = expiresIn ;
 
         await user.save() ;
 
