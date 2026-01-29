@@ -19,7 +19,12 @@ const UserSignIn = async(req,res)=>{
     const token = genWebToken(user)
     return res.status(200).json({
         message:'User LogedIn succesfully',
-        token
+        token,
+        user:{
+          id:user._id,
+          role:user.role,
+          email:user.email
+        }
     })
 
     
