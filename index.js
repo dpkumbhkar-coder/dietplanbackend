@@ -1,8 +1,9 @@
 const express = require("express");
 require("dotenv").config()
 const ConnectDb = require("./src/config/db.js")
-const UserRouter = require("./src/routes/UserRoutes.js")
-const PasswordRouter = require('./src/routes/ForgetPassword.js')
+const UserRoutes = require("./src/routes/UserRoutes.js")
+const PasswordRoutes = require('./src/routes/ForgetPassword.js')
+const adminRoutes = require('./src/routes/admin.route.js')
 const cors = require('cors');
 const app = express();
 
@@ -22,8 +23,9 @@ app.get('/',(req,res)=>{
     res.status(200).json({message:"App is runing fine"})
 })
 
-app.use('/api',UserRouter)
-app.use('/api',PasswordRouter)
+app.use('/api',UserRoutes)
+app.use('/api',PasswordRoutes)
+app.use('/api/admin',adminRoutes)
 app.listen(PORT , ()=>{
     console.log(`app is runing on port ${PORT}`)
 })
