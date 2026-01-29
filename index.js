@@ -4,6 +4,7 @@ const ConnectDb = require("./src/config/db.js")
 const UserRoutes = require("./src/routes/UserRoutes.js")
 const PasswordRoutes = require('./src/routes/ForgetPassword.js')
 const adminRoutes = require('./src/routes/admin.route.js')
+const userDietplanRoutes = require('./src/routes/UserDietplan.js')
 const cors = require('cors');
 const app = express();
 
@@ -13,8 +14,8 @@ ConnectDb()
 app.use(express.json())
 
 app.use(cors({
-  origin: 'http://localhost:5173', // frontend URL
-  credentials: true,               // allow cookies / auth headers
+  origin: 'http://localhost:5173', 
+  credentials: true,               
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -26,6 +27,7 @@ app.get('/',(req,res)=>{
 app.use('/api',UserRoutes)
 app.use('/api',PasswordRoutes)
 app.use('/api/admin',adminRoutes)
+app.use('/api/diet',userDietplanRoutes)
 app.listen(PORT , ()=>{
     console.log(`app is runing on port ${PORT}`)
 })
